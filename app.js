@@ -25,11 +25,11 @@ ul.append(li)
 // Modifying the text
 
 li.innerText = 'Papa Johns';
-li.setAttribute('id', 'main-heading')
-li.removeAttribute('id')
 
-// Getting Attributes
+// Modifying Attributes and Classes
+li.classList.add('list-items');// This adds class of List-items to our li
 
-const title = document.querySelector('#main-heading');
+console.log(li.classList.contains('list-items'));
 
-console.log(title.getAttribute('id'))
+// Removing elements
+li.remove();
