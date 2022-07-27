@@ -5,3 +5,11 @@
 .list-items {
   color: grey;
 }
+
+.hidden-content {
+  display: none;
+}
+
+.hidden-content.reveal-btn {
+  display: block;
+}
