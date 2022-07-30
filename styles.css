@@ -1,15 +1,3 @@
-#main-heading {
-  color: red;
-}
-
-.list-items {
-  color: grey;
-}
-
-.hidden-content {
-  display: none;
-}
-
-.hidden-content.reveal-btn {
+.button {
   display: block;
 }
