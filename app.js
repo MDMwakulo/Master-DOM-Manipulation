@@ -1,24 +1,22 @@
 // DOM Manipulation
 
-// Event Propagation
+// Event Delegation
 
-window.addEventListener('click', function() {
-  console.log('Window');
-}, false); // the true boolean value is to campture the event capturing
+document.querySelector('#sports').addEventListener('click', function(e) {
+  const target = e.target;
 
-document.addEventListener('click', function() {
-  console.log('Document');
-}, false);
+  console.log(target.textContent + ' is clicked.');
 
-document.querySelector('.div2').addEventListener('click', function() {
-  console.log('Div 2');
-}, false); //one the first click of the button div2 will fire but on the second click div2 will not fire.
+  if(target.matches('li')) {
+    target.style.backgroundColor = 'grey';
+    target.style.color = 'white';
+  } 
+});
+// Adding a new list item
+const sports = document.querySelector('#sports');
+const newSport = document.createElement('li');
 
-document.querySelector('.div1').addEventListener('click', function() {
-  console.log('Div 1');
-}, false);
+newSport.innerText = 'Rugby';
+newSport.setAttribute('id', 'rugby');
 
-document.querySelector('.button').addEventListener('click', function(e) {
-  e.preventDefault();
-  console.log(e.target.innerText = 'Clicked');
-}, false);
+sports.append(newSport);
