@@ -1,23 +1,11 @@
-// Variables
+// Variable
 
-let openBtn = document.querySelector('#open-btn');
-let modalContainer = document.querySelector('#modal-container');
-let closeBtn = document.querySelector('#close-btn');
+const accordion = document.getElementsByClassName('content-container');
 
-// Event Listeners
+for(let i = 0; i < accordion.length; i++){
+  accordion[i].addEventListener('click', function() {
+    this.classList.toggle('active');
+  })
+}
 
-openBtn.addEventListener('click', function() {
-  modalContainer.style.display = 'block';
-
-})
-
-closeBtn.addEventListener('click', function() {
-  modalContainer.style.display = 'none';
-})
-
-window.addEventListener('click', function(e) {
-  const target = e.target;
-  if(target === modalContainer){
-    modalContainer.style.display = 'none';
-  }
-})
+console.log(accordion[1]);
