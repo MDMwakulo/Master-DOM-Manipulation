@@ -1,82 +1,22 @@
-// Variable
+const cm = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118];
+const ton = [0.3,0.4,0.55,0.70,0.95,1.00,1.20,1.35,1.55,1.75,1.95,2.20,2.5,2.7,3.0,3.30,3.50,3.90,4.15,4.60,4.95,5.30,5.70,6.10,6.50,6.90,7.30,7.70,8.10,8.50,8.90,9.30,9.70,10.10,10.50,10.90,11.30,11.70,12.10,12.50,12.90,13.3,13.70,14.10,14.50,14.90,15.30,15.70,16.10,16.50,16.90,17.30,17.70,18.10,18.50,19.00,19.40,19.80,20.10];
+const yUnknown = 3;
 
-const startStopBtn = document.querySelector('#startStopBtn');
-const resetBtn = document.querySelector('#resetBtn');
+const findUnknownY = function(y, cm, ton) {
+  if(y < cm[0] || y > cm[cm.length - 1]) return `Number should be between ${cm[0]} and ${cm[cm.length - 1]}`;
 
-// Variable for time values
-
-let seconds = 0;
-let minutes = 0;
-let hours = 0;
-
-// Variables for set Interval and timerStatus
-
-let timerInterval = null;
-let timerStatus = "stopped";
-
-// Variables for leading zeros
-
-let leadingSeconds = 0;
-let leadingMinutes = 0;
-let leadingHours = 0;
-
-// Stop Watch Function
-
-function stopWatch(){
-  seconds++
-
-  if(seconds / 60 === 1){
-    seconds = 0;
-    minutes++
-
-    if(minutes / 60 === 1){
-      minutes = 0;
-      hours++
+  for(let i = 0; i < cm.length; i++){
+    if(y === cm[i]){
+      return `${y} has a ton of ${ton[i]}`;
+    } else if (y > cm[i] && y < cm[i + 1]) {//Interpolation Formulae
+      return `${y} has a ton of ${(((ton[i + 1] - ton[i]) * (y - cm[i]))/(cm[i + 1] - cm[i])) + ton[i]}`;
     }
   }
 
-  if(seconds < 10){
-    leadingSeconds = `0` + seconds.toString();
-  } else {
-    leadingSeconds = seconds;
-  }
-  if(minutes < 10){
-    leadingMinutes = `0` + minutes.toString();
-  } else {
-    leadingMinutes = minutes;
-  }
-  if(hours < 10){
-    leadingHours = `0` + hours.toString();
-  } else {
-    leadingHours = hours;
-  }
-
-  document.getElementById('timer').innerText = leadingHours + `:` + leadingMinutes + `:` + leadingSeconds;
 }
 
-startStopBtn.addEventListener('click', function() {
-  if(timerStatus === 'stopped'){
-    timerInterval = window.setInterval(stopWatch, 1000);
-    document.getElementById('startStopBtn').innerHTML = `<i class="fa-solid fa-pause" id="pause"></i>`
-    timerStatus = 'started';
-  } else {
-    window.clearInterval(timerInterval);
-    document.getElementById('startStopBtn').innerHTML = `<i class="fa-solid fa-play" id="play"></i>`;
-    timerStatus = 'stopped';
-  }
-})
+const yArr = [3,5,7,9,10,1,13,13.5,9,10,13,13.5,119]
 
-resetBtn.addEventListener('click', function() {
-  window.clearInterval(timerInterval);
-  seconds = 0;
-  minutes = 0;
-  hours = 0;
-
-  if(document.getElementById('startStopBtn').innerHTML = `<i class="fa-solid fa-pause" id="pause"></i>`) {
-    document.getElementById('startStopBtn').innerHTML = `<i class="fa-solid fa-play" id="play"></i>`;
-  }
-
-  timerStatus = "stopped";
-
-  document.getElementById('timer').innerText = '00:00:00';
-})
+for(let i = 0; i < yArr.length; i++){
+  console.log(findUnknownY(yArr[i],cm,ton));
+}
