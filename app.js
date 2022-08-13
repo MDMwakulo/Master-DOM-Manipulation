@@ -1,22 +1,45 @@
-const cm = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118];
-const ton = [0.3,0.4,0.55,0.70,0.95,1.00,1.20,1.35,1.55,1.75,1.95,2.20,2.5,2.7,3.0,3.30,3.50,3.90,4.15,4.60,4.95,5.30,5.70,6.10,6.50,6.90,7.30,7.70,8.10,8.50,8.90,9.30,9.70,10.10,10.50,10.90,11.30,11.70,12.10,12.50,12.90,13.3,13.70,14.10,14.50,14.90,15.30,15.70,16.10,16.50,16.90,17.30,17.70,18.10,18.50,19.00,19.40,19.80,20.10];
-const yUnknown = 3;
+// Variables
 
-const findUnknownY = function(y, cm, ton) {
-  if(y < cm[0] || y > cm[cm.length - 1]) return `Number should be between ${cm[0]} and ${cm[cm.length - 1]}`;
+const addTask = document.getElementById('add-task');
+const taskContainer = document.getElementById('task-container');
+const inputTask = document.getElementById('input-task');
 
-  for(let i = 0; i < cm.length; i++){
-    if(y === cm[i]){
-      return `${y} has a ton of ${ton[i]}`;
-    } else if (y > cm[i] && y < cm[i + 1]) {//Interpolation Formulae
-      return `${y} has a ton of ${(((ton[i + 1] - ton[i]) * (y - cm[i]))/(cm[i + 1] - cm[i])) + ton[i]}`;
-    }
+// Event Listener for Add Button
+
+addTask.addEventListener('click', function(){
+  let task = document.createElement('div');
+  task.classList.add('task');
+
+  let li = document.createElement('li');
+  li.innerText = `${inputTask.value}`;
+  task.appendChild(li);
+
+  let checkButton = document.createElement('button');
+  checkButton.innerHTML = `<i class="fa-solid fa-check"></i>`
+  checkButton.classList.add('checkTask');
+  task.appendChild(checkButton);
+
+  let deleteButton = document.createElement('button');
+  deleteButton.innerHTML = `<i class="fa-solid fa-trash-can"></i>`
+  deleteButton.classList.add('deleteTask');
+  task.appendChild(deleteButton);
+
+  if(inputTask.value === '') {
+    alert('Please Enter a Task');
+  } else {
+    taskContainer.appendChild(task);
   }
 
-}
+  inputTask.value = '';
 
-const yArr = [3,5,7,9,10,1,13,13.5,9,10,13,13.5,119]
+  checkButton.addEventListener('click', function(){
+    checkButton.parentElement.style.textDecoration = 'line-through';
+  })
 
-for(let i = 0; i < yArr.length; i++){
-  console.log(findUnknownY(yArr[i],cm,ton));
-}
+  deleteButton.addEventListener('click', function(e) {
+    let target = e.target;
+
+    target.parentElement.parentElement.remove();
+  })
+
+})
